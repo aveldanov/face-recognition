@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="assets/css/styles_pic.css">
+
+
+  <title>FaceRecognition</title>
+</head>
+
+<body>
+
+  <div id="container">
+    <!-- import jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <header>
+      <img src="assets/images/logo-intuit.png" alt="intuit_logo">
+      <h1>Face Recognition App</h1>
+    </header>
+
+    <!--   <button onclick="getUrl()">Submit</button>
+ -->
+    <div id="buttons">
+      <button id="snap">Snap Photo</button>
+
+      <button id="jsonPrint" onclick="jsonPrint()">Recognize</button>
+      <button id="reset" onclick="reset()">Reset</button>
+
+
+    </div>
+    <p id="demo"></p>
+    <img id="image" src="" alt="">
+
+
+    <br>
+    <br>
+
+    <p id="gender">Gender: </p>
+    <p id="age">Age: </p>
+    <p id="race">Ethnicity: </p>
+
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <div id="image_for_crop"></div>
+
+    <script>
+
+
+      ///////////////////////////////// 
+      // Grab elements, create settings, etc.
+      var video = document.getElementById('video');
+
+      // Get access to the camera!
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+          video.src = window.URL.createObjectURL(stream);
+          video.play();
+        });
+      }
+
+
+      // Elements for taking the snapshot
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var video = document.getElementById('video');
+
+
+      document.getElementById("snap").addEventListener("click", z = function () {
+        image = context.drawImage(video, 0, 0, 640, 480);
+        var x = document.createElement("IMG");
+      });
+
+//Converts canvas image to image
+/*         var image = new Image();
+        image.id = "pic"
+        image.src = canvas.toDataURL(); */
+
+function convertCanvasToImage(canvas) {
+  var image = new Image();
+	image.src = canvas.toDataURL();
+	return image.src;
+}
+        /////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+        function jsonPrint() {
+          // put your keys in the header
+          var headers = {
+            "Content-type": "application/json",
+            "app_id": "59b642a2",
+            "app_key": "48341234cded2480ee16e733ee7d24d5"
+          };
+
+
+          var payload = { "image": convertCanvasToImage(canvas)};
+
+
+          var url = "http://api.kairos.com/detect";
+          // make request 
+          $.ajax(url, {
+            headers: headers,
+            type: "POST",
+            data: JSON.stringify(payload),
+            dataType: "text"
+          }).done(function (response) {
+            console.log(response);
+            printData(response);
+
+          });
+
+
+        };
+
+
+      
+
+
+      //Prints out result
+      function printData(response) {
+        var jjson = JSON.parse(response);
+        console.log(jjson);
+        console.log(jjson.images[0].height);
+        var gender = jjson.images[0].faces[0].attributes.gender.type;
+        document.getElementById('gender').innerHTML = "Gender: " + gender;
+        var age = jjson.images[0].faces[0].attributes.age
+        document.getElementById('age').innerHTML = "Age: " + age;
+
+        var black = jjson.images[0].faces[0].attributes.black;
+        var asian = jjson.images[0].faces[0].attributes.asian;
+        var hispanic = jjson.images[0].faces[0].attributes.hispanic;
+        var white = jjson.images[0].faces[0].attributes.white;
+
+        var race = {
+          "Black": black,
+          "Asian": asian,
+          "Hispanic": hispanic,
+          "White": white
+        }
+
+        var raceId = Object.keys(race).reduce((a, b) => race[a] > race[b] ? a : b);
+        document.getElementById('race').innerHTML = "Ethnicity: " + raceId;
+
+
+        // Math.max.apply(Math,array.map(function(race){return race.y;}))
+
+
+
+
+        console.log("Gender: " + jjson.images[0].faces[0].attributes.gender.type);
+        console.log('Age: ' + jjson.images[0].faces[0].attributes.age);
+        console.log('White: ' + jjson.images[0].faces[0].attributes.white);
+        console.log('Black: ' + jjson.images[0].faces[0].attributes.black);
+        console.log('Asian: ' + jjson.images[0].faces[0].attributes.asian);
+        console.log('Hispanic: ' + jjson.images[0].faces[0].attributes.hispanic);
+        console.log('Confidence: ' + jjson.images[0].faces[0].confidence);
+
+
+      }
+
+function reset(){
+location.reload()
+}
+    </script>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" value="non" id="image_url">
+  <button onclick="retUrl()">Submit</button>
+  <button onclick="timesThree()">Times</button>
+
+  <p id="demo"></p>
+
+
+  <script>
+    function retUrl(){
+    var image_url1 = document.getElementById('image_url').value;
+      document.getElementById('demo').innerHTML = image_url1;
+      return image_url1;
+    }
+    var x = retUrl();
+    //console.log(x);
+
+    function timesThree(){
+      return console.log(x);
+    }
+
+  
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+    <video id="video" width="50" height="50" autoplay></video>
+    <button id="snap">Snap Photo</button>
+    <canvas id="canvas" width="50" height="50"></canvas>
+    <button id="trigger" onclick="convertCanvasToImage(canvas)">Trigger</button>
+
+
+
+  <script>
+  // Grab elements, create settings, etc.
+var video = document.getElementById('video');
+
+// Get access to the camera!
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Not adding `{ audio: true }` since we only want video now
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        video.src = window.URL.createObjectURL(stream);
+        video.play();
+    });
+}
+  // Elements for taking the snapshot
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var video = document.getElementById('video');
+
+// Trigger photo take
+document.getElementById("snap").addEventListener("click", function() {
+	context.drawImage(video, 0, 0, 50, 50);
+});
+  
+  // Converts canvas to an image
+function convertCanvasToImage(canvas) {
+	var image = new Image();
+	image.src = canvas.toDataURL("image/png");
+	return console.log(image);
+}
+
+
+//convertCanvasToImage(canvas);
+
+  
+  </script>
+</body>
+</html>

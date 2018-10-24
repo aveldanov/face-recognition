@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+/*     var data = {
+      2013: [
+        {
+          prov: "salerno",
+          val: 100
+        },
+        {
+          prov: "napoli",
+          val: 35
+        },
+        {
+          prov: "avellino",
+          val: 0
+        }
+      ]
+    };
+
+    array = data[2013];
+
+
+    var raceId = array.reduce(function (max, x) { return (x.val > max) ? x.val : max; }, 0);
+
+    console.log(raceId); */
+
+
+/*     var race = [
+      {
+        race: "black",
+        val: 1,      
+},
+      {
+        race: "asian",
+        val: 2,
+      },
+      {
+        race: "white",
+        val: 3,
+      },
+      {
+        race: "hispanic",
+        val: 4,
+      }
+
+
+        ];
+
+    raceId = race.reduce(function (max, x) { return (x.val > max) ? x.val : max; }, 0);
+    console.log(raceId); */
+       // Math.max.apply(Math,array.map(function(race){return race.y;}))
+
+
+
+        var race =  {
+          "black":1,
+          "asian":5,
+          "hispanic": 3,
+          "white":4
+        }
+        
+
+        console.log(Object.keys(race).reduce((a, b) => race[a] > race[b] ? a : b));
+
+
+
+  </script>
+
+</body>
+
+</html>

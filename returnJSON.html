@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Documescnt</title>
+</head>
+
+<body>
+  <script>
+    var myObj = {
+      "images": [
+        {
+          "status": "Complete",
+          "width": 1252,
+          "height": 1252,
+          "file": "geNnV6yX.jpeg",
+          "faces": [
+            {
+              "topLeftX": 381,
+              "topLeftY": 282,
+              "height": 594,
+              "rightEyeCenterY": 442,
+              "rightEyeCenterX": 531,
+              "pitch": -13,
+              "quality": 1.14116,
+              "confidence": 0.99946,
+              "chinTipX": 704,
+              "yaw": -4,
+              "chinTipY": 897,
+              "eyeDistance": 270,
+              "width": 594,
+              "leftEyeCenterY": 410,
+              "leftEyeCenterX": 799,
+              "attributes": {
+                "lips": "Apart",
+                "asian": 0.00016,
+                "gender": {
+                  "femaleConfidence": 1.0e-5,
+                  "type": "M",
+                  "maleConfidence": 0.99999
+                },
+                "age": 34,
+                "hispanic": 0.00033,
+                "other": 0.00039,
+                "black": 0.99912,
+                "white": 0,
+                "glasses": "None"
+              },
+              "face_id": 1,
+              "roll": -5
+            }
+          ]
+        }
+      ],
+      "uploaded_image_url": ""
+    }
+
+
+  var data = {
+    "name": "mkyong",
+    "age": 30,
+    "address": {
+        "streetAddress": "88 8nd Street",
+        "city": "New York"
+    },
+    "phoneNumber": [
+        {
+            "type": "home",
+            "number": "111 111-1111"
+        },
+        {
+            "type": "fax",
+            "number": "222 222-2222"
+        }
+    ]
+  }
+
+  // var myObjStr = JSON.parse(myObj);
+
+  //  console.log(myObj.images.status);
+
+ //   var myObj2Str = JSON.parse(myObj2);
+//console.log(myObj2Str);
+
+
+
+/*        var data = '{"name": "mkyong","age": 30,"address": {"streetAddress": "88 8nd Street","city": "New York"},"phoneNumber": [{"type": "home","number": "111 111-1111"},{"type": "fax","number": "222 222-2222"}]}';
+ */
+
+var jjson1 = JSON.stringify(myObj);
+var jjson = JSON.parse(jjson1);
+console.log(jjson.images[0].height);
+console.log(jjson.images[0].faces[0].topLeftX);
+console.log(jjson.images[0].faces[0].attributes.lips);
+console.log(jjson.images[0].faces[0].attributes.gender.type);
+console.log(jjson.images[0].faces[0].attributes.age);
+
+
+
+
+var json1 = JSON.stringify(data);
+var json = JSON.parse(json1);
+    
+//alert(json["name"]); //mkyong
+/* alert(json.name); //mkyong
+
+alert(json.address.streetAddress); //88 8nd Street
+alert(json["address"].city); //New York
+    
+alert(json.phoneNumber[0].number); //111 111-1111
+alert(json.phoneNumber[1].type); //fax
+    
+alert(json.phoneNumber.number); //undefined */
+
+  </script>
+</body>
+
+</html>
